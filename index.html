@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Cicada 3031 | Dark Mindset Trial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: url('https://files.catbox.moe/4fwn2z.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Courier New', 'Fira Code', 'Lucida Console', monospace;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            color: #c9d1d9;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(3px);
+            z-index: -1;
+        }
+
+        .page {
+            display: none;
+            max-width: 880px;
+            width: 100%;
+            background: rgba(8, 12, 18, 0.88);
+            border: 1px solid #4a2e2e;
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 0 2px rgba(100, 50, 50, 0.3);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.97); filter: blur(2px);}
+            to { opacity: 1; transform: scale(1); filter: blur(0);}
+        }
+
+        .active-page {
+            display: block;
+        }
+
+        h1 {
+            font-size: 1.7rem;
+            border-left: 6px solid #aa2e2e;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+            color: #e5c5c5;
+            letter-spacing: -0.5px;
+            text-shadow: 0 0 3px #3a0f0f;
+        }
+
+        .zepar-greeting {
+            background: #0f0808cc;
+            padding: 1rem 1.2rem;
+            border-radius: 24px;
+            margin-bottom: 1.8rem;
+            border-left: 4px solid #aa5555;
+            font-style: italic;
+            color: #e0bcbc;
+            font-weight: bold;
+            font-size: 0.95rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .zepar-greeting::before {
+            content: "⚔️ ZEPAR (PSYCHO-SEAL) : ";
+            font-weight: 900;
+            color: #bc8a5f;
+        }
+
+        .puzzle-area, .story-area {
+            background: #03060bc9;
+            padding: 1.2rem;
+            border-radius: 24px;
+            margin: 1rem 0;
+            border: 1px solid #552222;
+        }
+
+        input, textarea {
+            width: 100%;
+            background: #0a0202;
+            border: 1px solid #6b3a3a;
+            padding: 0.8rem;
+            color: #efcfcf;
+            font-family: monospace;
+            border-radius: 18px;
+            margin: 0.8rem 0;
+            font-size: 0.9rem;
+        }
+
+        button {
+            background: #2a1212;
+            border: 1px solid #9e4a4a;
+            padding: 0.7rem 1.5rem;
+            border-radius: 40px;
+            color: #f5e1e1;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 0.5rem;
+            font-family: monospace;
+        }
+
+        button:hover {
+            background: #4a2222;
+            box-shadow: 0 0 12px #cc6666;
+            color: white;
+            border-color: #cc8888;
+        }
+
+        .math-output, .code-output, .msg-area {
+            background: #000000aa;
+            padding: 0.8rem;
+            border-radius: 16px;
+            margin-top: 12px;
+            border-left: 5px solid #b33b3b;
+        }
+
+        hr {
+            border-color: #5a2e2e;
+            margin: 20px 0;
+        }
+
+        footer {
+            font-size: 0.65rem;
+            text-align: center;
+            margin-top: 1.8rem;
+            color: #9b7b7b;
+        }
+    </style>
+</head>
+<body>
+
+<!-- PAGE 1 : TEBAKAN NILAI HIDUP -->
+<div id="page1" class="page active-page">
+    <div class="zepar-greeting">
+        "Kau datang membawa topeng. Tunjukkan dirimu yang sebenarnya: pecahkan teka-teki di bawah ini. Jika gagal, egomu yang akan mati."
+    </div>
+    <h1>🌀 PINTU PSYCHE I — TIMBANGAN JIWA</h1>
+    <div class="puzzle-area">
+        <p>🌀 <strong>Pertanyaan:</strong> "Aku lahir dari api, tapi tak pernah terbakar. Aku membawa pesan, tapi tak punya mulut. Aku bisa menyalakan perang atau mengakhiri persahabatan. Tanpaku, manusia hanyalah bayangan. Apakah aku?"</p>
+        <p>Petunjuk psikologis: "Kata yang paling sering diucapkan saat marah dan saat rindu."</p>
+        <label>Masukkan jawaban (lowercase, satu kata):</label>
+        <input type="text" id="psychKey1" placeholder="jawaban...">
+        <button onclick="verifyPsyPage1()">Buka Pikiran Bawah Sadar</button>
+        <div id="msgPsych1" class="msg-area" style="display:none;"></div>
+    </div>
+    <footer>eyeGPT | Cicada 3031 - Dark Mindset</footer>
+</div>
+
+<!-- PAGE 2 : MATEMATIKA MULTI-DIMENSI -->
+<div id="page2" class="page">
+    <div class="zepar-greeting">
+        "Logika adalah penjara. Atau kebebasan? Hitung ini, jika kau berani melihat angka sebagai wujud sakit."
+    </div>
+    <h1>📐 PINTU PSYCHE II — NERACA ANGKA GILA</h1>
+    <div class="puzzle-area">
+        <p>Selesaikan persamaan <strong>multi-tahap</strong> untuk mendapatkan kode lanjut:</p>
+        <p style="background:#0e0303; padding:14px; border-radius:20px;">
+            Tahap 1: ∫[0,2] (3x² - 2x + 5) dx <br>
+            Tahap 2: (Hasil Tahap 1) * 7 + Σ_{n=1}^{5} (n! / n²) <br>
+            Tahap 3: Ambil digit terakhir hasil tahap 2, lalu pangkatkan 3 dan kurangi dengan 2022 + sqrt(144). <br>
+            Final: Hasil absolute (integer positif).
+        </p>
+        <label>Angka final (bulat positif):</label>
+        <input type="number" id="mathPsychAnswer" placeholder="jawaban integer">
+        <button onclick="verifyPsychPage2()">Ekstrak Kode Halaman 3</button>
+        <div id="msgPsych2" class="msg-area" style="display:none;"></div>
+    </div>
+</div>
+
+<!-- PAGE 3 : CERITA PENUH JEBAKAN PSIKOLOGI -->
+<div id="page3" class="page">
+    <div class="zepar-greeting">
+        "Bacalah dengan perasaan. Atau mati rasa. Zepar mengamatimu."
+    </div>
+    <h1>📖 PINTU PSYCHE III — DISTORSI NARASI</h1>
+    <div class="story-area">
+        <p>"Tiga wajah dalam satu cermin. Wajah pertama menangis setiap kali mendengar namanya. Wajah kedua tertawa ketika seseorang memohon. Wajah ketiga diam, hanya menulis angka di dinding. </p>
+        <p>Malam itu, Zepar berbisik: 'Jumlah huruf 'a' dari seluruh paragraf pertama, dikalikan dengan jumlah kata yang mengandung 'e' di paragraf kedua. Kemudian dibagi 2. Lalu kurangi dengan jumlah tanda baca (koma, titik) total dalam dua paragraf.'</p>
+        <p><strong>Hitung hasil integer.</strong> Ini adalah kunci menuju pintu keempat."</p>
+    </div>
+    <label>Angka kunci hasil observasi:</label>
+    <input type="number" id="storyPsychAnswer" placeholder="hasil numerik">
+    <button onclick="verifyPsychPage3()">Buka Pintu Obsesi</button>
+    <div id="msgPsych3" class="msg-area"></div>
+</div>
+
+<!-- PAGE 4 : REVERSE BINARY + MIND TRAP -->
+<div id="page4" class="page">
+    <div class="zepar-greeting">
+        "Binary adalah bahasa iblis. Balikkan, maka kau lihat kebenaran pahit."
+    </div>
+    <h1>⚙️ PINTU PSYCHE IV — BALIKAN KEGELAPAN</h1>
+    <div class="puzzle-area">
+        <p>Binary berikut: <strong>01001101 01101001 01101110 01100100 01011111 01110100 01110010 01100001 01110000</strong> </p>
+        <p>Konversi ke ASCII -> balik urutan seluruh string -> lalu ganti setiap vokal dengan angka (a=1, e=2, i=3, o=4, u=5). Hasil akhir 9 karakter (huruf+angka).</p>
+        <label>Masukkan 9 karakter hasil:</label>
+        <input type="text" id="reversePsych" maxlength="9">
+        <button onclick="verifyPsychPage4()">Verifikasi dan Lanjut</button>
+        <div id="msgPsych4" class="msg-area"></div>
+    </div>
+</div>
+
+<!-- PAGE 5 : TEKA-TEKI SIMBOL SEQUENCE -->
+<div id="page5" class="page">
+    <div class="zepar-greeting">
+        "Kau harus menekan simbol dalam urutan yang melambangkan trauma masa lalu: 🔻 5 2 🔺 1 4 🔻 🔺 3."
+    </div>
+    <h1>⚠️ PINTU PSYCHE V — SIMBOL KETERPAKSAAN</h1>
+    <div class="puzzle-area">
+        <p>Urutan yang benar adalah: <strong style="color:#df8f8f;">🔻 (segitiga bawah) , 5 , 2 , 🔺 (segitiga atas) , 1 , 4 , 🔻 , 🔺 , 3</strong> . Tekan tombol di bawah secara berurutan.</p>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin:20px 0;">
+            <button onclick="seqPsychPress('downTri')">🔻 BAWAH</button>
+            <button onclick="seqPsychPress('upTri')">🔺 ATAS</button>
+            <button onclick="seqPsychPress('5')">5</button>
+            <button onclick="seqPsychPress('2')">2</button>
+            <button onclick="seqPsychPress('1')">1</button>
+            <button onclick="seqPsychPress('4')">4</button>
+            <button onclick="seqPsychPress('3')">3</button>
+        </div>
+        <p>Urutan saat ini: <span id="seqPsychDisplay">[]</span></p>
+        <button onclick="checkPsychSequence()">Validasi Urutan Mental</button>
+        <div id="msgPsych5" class="msg-area"></div>
+    </div>
+</div>
+
+<!-- PAGE 6 : UCAPAN SELAMAT PSYCHOTEST -->
+<div id="page6" class="page">
+    <div class="zepar-greeting">
+        "Selamat... kau selamat dari pusaran psikotest. Tapi apakah dirimu masih utuh?"
+    </div>
+    <h1>🏆 SELAMAT — KAU TELAH DIUJI ZEPAR</h1>
+    <div class="story-area">
+        <p>"Kepercayaanmu pada logika, enkripsi, dan angka telah membuatmu sampai sini. Tapi ketahuilah: setiap jawaban yang benar adalah cermin dari obsesi. Zepar mengucapkan selamat datang dalam kegelapan yang sesungguhnya."</p>
+        <p>✨✨✨ <strong>Ucapan Psikologi Zepar:</strong> ✨✨✨<br>
+        "Kau sekarang memahami bahwa tidak ada pintu, yang ada hanyalah labirin pikiranmu sendiri. Cicada 3031 hanyalah fondasi. Selamat menikmati kebebasan yang menyiksa."</p>
+        <hr>
+        <p style="text-align:center;">Kode final: <strong>PSYCHE#3031_ZEPAR_ASCEND</strong><br><span style="font-size:0.75rem;">Tunjukkan pada kegelapan bahwa kau lebih gelap.</span></p>
+        <button onclick="resetPsychGame()">⟳ Reset Pikiran (Kembali ke awal)</button>
+    </div>
+    <footer>eyeGPT — Dark Mindset | Zepar's Psychological Trial</footer>
+</div>
+
+<script>
+    let unlockedPsych = [true, false, false, false, false, false];
+    let currentPsychSeq = [];
+    const targetPsychSeq = ['downTri', '5', '2', 'upTri', '1', '4', 'downTri', 'upTri', '3'];
+
+    function goToPsychPage(pn) {
+        for(let i=1;i<=6;i++) {
+            let pg = document.getElementById(`page${i}`);
+            if(pg) pg.classList.remove('active-page');
+        }
+        let nextPage = document.getElementById(`page${pn}`);
+        if(nextPage) nextPage.classList.add('active-page');
+    }
+
+    // PAGE 1 - Teka-teki baru tanpa kunci bocor
+    window.verifyPsyPage1 = function() {
+        let key = document.getElementById('psychKey1').value.trim().toLowerCase();
+        let msgDiv = document.getElementById('msgPsych1');
+        msgDiv.style.display = 'block';
+        
+        // Jawaban: "kata" (kata-kata, ucapan, atau "kata" sebagai jawaban teka-teki)
+        if(key === "kata" || key === "ucapan" || key === "kata kata" || key === "perkataan") {
+            msgDiv.innerHTML = '✅ Teka-teki jiwa terpecahkan. Menuju tahap berikutnya.';
+            unlockedPsych[1] = true;
+            setTimeout(() => { goToPsychPage(2); }, 1400);
+        } else {
+            msgDiv.innerHTML = '❌ Gagal. Cermin jiwa masih buram. Coba lagi.';
+        }
+    };
+
+    window.verifyPsychPage2 = function() {
+        let ans = parseInt(document.getElementById('mathPsychAnswer').value);
+        let msgDiv = document.getElementById('msgPsych2');
+        msgDiv.style.display = 'block';
+        
+        if(ans === 1818) {
+            msgDiv.innerHTML = '✅ Kau menguasai angka kegelapan. Pintu tiga terbuka.';
+            unlockedPsych[2]=true;
+            setTimeout(()=>{goToPsychPage(3);},1300);
+        } else {
+            msgDiv.innerHTML = `❌ Jawaban ${ans} salah. Coba hitung ulang.`;
+        }
+    };
+
+    window.verifyPsychPage3 = function() {
+        let obs = parseInt(document.getElementById('storyPsychAnswer').value);
+        let msgDiv = document.getElementById('msgPsych3');
+        
+        if(obs === 31) {
+            msgDiv.innerHTML = '✅ Cerita telah berbicara. Pintu keempat menanti.';
+            unlockedPsych[3]=true;
+            setTimeout(()=>{goToPsychPage(4);},1200);
+        } else {
+            msgDiv.innerHTML = '❌ Gagal membaca pikiran Zepar. Coba lagi.';
+        }
+    };
+
+    window.verifyPsychPage4 = function() {
+        let userStr = document.getElementById('reversePsych').value.trim();
+        let msgDiv = document.getElementById('msgPsych4');
+        
+        if(userStr === "p4rt_dn3M") {
+            msgDiv.innerHTML = '✅ Balikan diterima. Menuju pintu terakhir sebelum puncak.';
+            unlockedPsych[4]=true;
+            setTimeout(()=>{goToPsychPage(5);},1200);
+        } else {
+            msgDiv.innerHTML = '❌ Hasil tidak sesuai. Coba lagi.';
+        }
+    };
+
+    window.seqPsychPress = function(val) {
+        currentPsychSeq.push(val);
+        updatePsychSeqDisplay();
+        if(currentPsychSeq.length > targetPsychSeq.length) {
+            currentPsychSeq = [];
+            updatePsychSeqDisplay();
+            document.getElementById('msgPsych5').innerHTML = '⚠️ Kelebihan urutan, direset. Ulangi dari awal.';
+        }
+    };
+    
+    function updatePsychSeqDisplay() {
+        document.getElementById('seqPsychDisplay').innerText = '[' + currentPsychSeq.join(', ') + ']';
+    }
+    
+    window.checkPsychSequence = function() {
+        if(currentPsychSeq.length !== targetPsychSeq.length) {
+            document.getElementById('msgPsych5').innerHTML = `❌ Urutan belum lengkap (butuh ${targetPsychSeq.length} tekan).`;
+            return;
+        }
+        let match = true;
+        for(let i=0;i<targetPsychSeq.length;i++) {
+            if(currentPsychSeq[i] !== targetPsychSeq[i]) match=false;
+        }
+        if(match) {
+            document.getElementById('msgPsych5').innerHTML = '✅ Urutan simbol memicu trauma. Pintu keenam terungkap.';
+            unlockedPsych[5]=true;
+            setTimeout(()=>{goToPsychPage(6);},1000);
+        } else {
+            document.getElementById('msgPsych5').innerHTML = '❌ Urutan salah. Reset dan coba lagi.';
+            currentPsychSeq=[];
+            updatePsychSeqDisplay();
+        }
+    };
+
+    window.resetPsychGame = function() {
+        for(let i=1;i<=5;i++) unlockedPsych[i]=false;
+        unlockedPsych[0]=true;
+        currentPsychSeq=[];
+        document.getElementById('psychKey1').value='';
+        document.getElementById('mathPsychAnswer').value='';
+        document.getElementById('storyPsychAnswer').value='';
+        document.getElementById('reversePsych').value='';
+        document.getElementById('msgPsych1').style.display='none';
+        document.getElementById('msgPsych2').style.display='none';
+        document.getElementById('msgPsych3').innerHTML='';
+        document.getElementById('msgPsych4').innerHTML='';
+        document.getElementById('msgPsych5').innerHTML='';
+        updatePsychSeqDisplay();
+        goToPsychPage(1);
+    };
+
+    window.onload = () => {
+        goToPsychPage(1);
+    };
+</script>
+</body>
+</html>
